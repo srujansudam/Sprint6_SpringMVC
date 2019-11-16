@@ -13,8 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Transient;
 
 import com.cg.ibs.rm.ui.Status;
 
@@ -42,8 +41,10 @@ public class CreditCard {
 	private String currentPin;
 	@Column(name = "Credit_Card_Type", nullable = false)
 	private String cardType;
-	
-	@DateTimeFormat(pattern = "")
+	@Transient
+	private int month;
+	@Transient
+	private int year;
 	@Column(name = "Credit_Expiry_Date", nullable = false)
 	private LocalDate dateOfExpiry;
 	@Column(name = "Credit_Card_Timestamp")
@@ -139,6 +140,22 @@ public class CreditCard {
 
 	public void setDateOfExpiry(LocalDate dateOfExpiry) {
 		this.dateOfExpiry = dateOfExpiry;
+	}
+
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 //	public Status getStatus() {

@@ -7,15 +7,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>beneficiary view</title>
+<title>Credit Cards</title>
 </head>
 <body>
-	<jsp:include page="/bankadminnav"></jsp:include>
-	<h2>Beneficiaries</h2>
+	<h2>You have the following beneficiaries:</h2>
 
 
 	<c:choose>
-		<c:when test="${beneficiaries==null or beneficiaries.size()==0 }">
+		<c:when
+			test="${savedBeneficiaries==null or savedBeneficiaries.size()==0 }">
 			<p>
 				<strong>No Records Available</strong>
 			</p>
@@ -25,14 +25,14 @@
 				<tr>
 					<th>Beneficiary Account No</th>
 					<th>Beneficiary Account Name</th>
-					<th>Bank Ifsc Code</th>
+					<th>Bank IFSC Code</th>
 					<th>Bank Name</th>
 					<th>Account Type</th>
 					<th>Current Status</th>
-					<th>Request Time</th>
-					<th colspan="2">Approve/Decline</th>
+					<th>Modify</th>
+					<th>Delete</th>
 				</tr>
-				<c:forEach var="beneficiary" items="${beneficiaries}">
+				<c:forEach var="beneficiary" items="${savedBeneficiaries}">
 					<tr>
 						<td>${beneficiary.accountNumber}</td>
 						<td>${beneficiary.accountName}</td>
@@ -40,22 +40,27 @@
 						<td>${beneficiary.bankName}</td>
 						<td>${beneficiary.type}</td>
 						<td>${beneficiary.status}</td>
-						<td>${beneficiary.timestamp}</td>
-						<td colspan="2">&nbsp;
-							<form action="acceptBeneficiaries">
+
+						<td><input type="submit" name="modify" value="Modify"
+							onclick="modifyben" /></td>
+						<td>
+							<form action="deleteben">
 								<input type="hidden" name="accountNumber"
 									value="${beneficiary.accountNumber}"> <input
-									type="submit" name="decision" value="Approve">
-								&nbsp;&nbsp; <input type="submit" name="decision"
-									value="Decline"> &nbsp;
+									type="submit" name="delete" value="Delete" />
 							</form>
 						</td>
 					</tr>
+
 				</c:forEach>
+
 			</table>
 		</c:otherwise>
 	</c:choose>
+	<form>
+		<div></div>
+	</form>
 
 </body>
-
+</body>
 </html>

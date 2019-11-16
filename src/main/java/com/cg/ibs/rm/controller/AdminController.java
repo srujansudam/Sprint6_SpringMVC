@@ -51,7 +51,7 @@ public class AdminController {
 	public ModelAndView acceptCards(@RequestParam("cardNumber") BigInteger cardNumber,
 			@RequestParam("decision") String decision) {
 		ModelAndView modelAndView = new ModelAndView();
-		if (decision.equalsIgnoreCase("accept")) {
+		if (decision.equalsIgnoreCase("approve")) {
 			try {
 				service.saveCreditCardDetails(cardNumber);
 			} catch (IBSExceptions e) {
@@ -76,7 +76,7 @@ public class AdminController {
 	public ModelAndView acceptBeneficiaries(@RequestParam("accountNumber") BigInteger accountNumber,
 			@RequestParam("decision") String decision) {
 		ModelAndView modelAndView = new ModelAndView();
-		if (decision.equalsIgnoreCase("accept")) {
+		if (decision.equalsIgnoreCase("approve")) {
 			try {
 				service.saveBeneficiaryDetails(accountNumber);
 			} catch (IBSExceptions e) {
