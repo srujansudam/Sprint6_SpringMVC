@@ -20,7 +20,7 @@ public class UserController {
 	@Autowired
 	CustomerService customerService;
 
-	@RequestMapping("/")
+	@RequestMapping({"/","/chooseidentity"})
 	public String home() {
 		return "chooseidentity";
 	}

@@ -17,7 +17,7 @@ public class CreditCardController {
 
 	@Autowired
 	private CreditCardService creditCard;
-@Autowired
+	@Autowired
 	private CustomerService custService;
 
 	@RequestMapping("/creditcard")
@@ -61,9 +61,7 @@ public class CreditCardController {
 	@RequestMapping(method = RequestMethod.POST, value = "/view")
 	public ModelAndView viewCardPost(@ModelAttribute CreditCard card) {
 		ModelAndView mv= new ModelAndView();
-	
 			mv.setViewName("submitcard");
-		
 		return mv;
 		}
 

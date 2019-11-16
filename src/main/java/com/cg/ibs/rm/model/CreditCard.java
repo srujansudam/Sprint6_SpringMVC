@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.cg.ibs.rm.ui.Status;
 
 @Entity
@@ -40,6 +42,8 @@ public class CreditCard {
 	private String currentPin;
 	@Column(name = "Credit_Card_Type", nullable = false)
 	private String cardType;
+	
+	@DateTimeFormat(pattern = "")
 	@Column(name = "Credit_Expiry_Date", nullable = false)
 	private LocalDate dateOfExpiry;
 	@Column(name = "Credit_Card_Timestamp")

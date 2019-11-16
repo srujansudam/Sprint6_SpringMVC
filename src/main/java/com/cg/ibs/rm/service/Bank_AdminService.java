@@ -10,9 +10,9 @@ import com.cg.ibs.rm.model.CreditCard;
 public interface Bank_AdminService {
 	public Set<BigInteger> showRequests();
 
-	public Set<CreditCard> showUnapprovedCreditCards(BigInteger uci);
+	public Set<CreditCard> showUnapprovedCreditCards();
 
-	public Set<Beneficiary> showUnapprovedBeneficiaries(BigInteger uci);
+	public Set<Beneficiary> showUnapprovedBeneficiaries();
 
 	public boolean saveCreditCardDetails(BigInteger cardNumber) throws IBSExceptions;
 

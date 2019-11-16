@@ -27,16 +27,16 @@ public class Bank_AdminServiceImpl implements Bank_AdminService {
 	}
 
 	@Override
-	public Set<CreditCard> showUnapprovedCreditCards(BigInteger uci) {
+	public Set<CreditCard> showUnapprovedCreditCards() {
 	//	logger.info("entering into showUnapprovedCreditCards method of BankRepresentativeServiceImpl class");
-		return bankRepresentativeDAO.getCreditCardDetails(uci);
+		return bankRepresentativeDAO.getCreditCardDetails();
 
 	}
 
 	@Override
-	public Set<Beneficiary> showUnapprovedBeneficiaries(BigInteger uci) {
+	public Set<Beneficiary> showUnapprovedBeneficiaries() {
 		//logger.info("entering into showUnapprovedBeneficiaries method of BankRepresentativeServiceImpl class");
-		return bankRepresentativeDAO.getBeneficiaryDetails(uci);
+		return bankRepresentativeDAO.getBeneficiaryDetails();
 	}
 
 	@Override

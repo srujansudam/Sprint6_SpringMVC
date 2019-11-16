@@ -10,9 +10,9 @@ import com.cg.ibs.rm.model.CreditCard;
 public interface BankAdminDAO {
 	public Set<BigInteger> getRequests();
 
-	public Set<CreditCard> getCreditCardDetails(BigInteger uci);
+	public Set<CreditCard> getCreditCardDetails();
 
-	public Set<Beneficiary> getBeneficiaryDetails(BigInteger uci);
+	public Set<Beneficiary> getBeneficiaryDetails();
 
 	public boolean checkedCreditCardDetails(BigInteger cardNumber) throws IBSExceptions;
 

@@ -54,25 +54,23 @@ public class BankAdminDAOImpl implements BankAdminDAO {
 		return ucis;
 	}
 
-	public Set<CreditCard> getCreditCardDetails(BigInteger uci) {// credit cards list which goes to bank admin
+	public Set<CreditCard> getCreditCardDetails() {// credit cards list which goes to bank admin
 		//logger.info("entering into getCreditCardDetails method of BankRepresentativeDAOImpl class");
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<CreditCard> query = builder.createQuery(CreditCard.class);
 		Root<CustomerBean> custRoot = query.from(CustomerBean.class);
 		Join<CustomerBean, CreditCard> unapprovedCreditCards = custRoot.join("creditCards");
-		query.select(unapprovedCreditCards).where(builder.and(builder.equal(custRoot.get("uci"), uci),
-				builder.equal(unapprovedCreditCards.get("cardStatus"), Status.PENDING)));
+		query.select(unapprovedCreditCards).where(builder.equal(unapprovedCreditCards.get("cardStatus"), Status.PENDING));
 		return new HashSet<>(manager.createQuery(query).getResultList());
 	}
 
-	public Set<Beneficiary> getBeneficiaryDetails(BigInteger uci) {// beneficiary list which goes to bank admin
+	public Set<Beneficiary> getBeneficiaryDetails() {// beneficiary list which goes to bank admin
 		//logger.info("entering into getBeneficiaryDetails method of BankRepresentativeDAOImpl class");
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Beneficiary> query = builder.createQuery(Beneficiary.class);
 		Root<CustomerBean> custRoot = query.from(CustomerBean.class);
 		Join<CustomerBean, Beneficiary> unapprovedBeneficiaries = custRoot.join("beneficiaries");
-		query.select(unapprovedBeneficiaries).where(builder.and(builder.equal(custRoot.get("uci"), uci),
-				builder.equal(unapprovedBeneficiaries.get("status"), Status.PENDING)));
+		query.select(unapprovedBeneficiaries).where(builder.equal(unapprovedBeneficiaries.get("status"), Status.PENDING));
 		return new HashSet<>(manager.createQuery(query).getResultList());
 	}
 

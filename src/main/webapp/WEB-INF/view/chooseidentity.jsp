@@ -10,7 +10,7 @@
 	<h2>PLEASE CHOOSE YOUR IDENTITY</h2>
 	<form method="get">
 		<input type="submit" value="CUSTOMER" formaction="customer"> <br>
-		<input type="submit" value="BANK ADMIN" formaction="bankadmin"><br>
+		<input type="submit" value="BANK ADMIN" formaction="bankadminnav"><br>
 	</form>
 </body>
 </html>
