@@ -10,6 +10,8 @@
 <title>Credit Cards</title>
 </head>
 <body>
+	<jsp:include page="/remnav" />
+	<jsp:include page="/cardnav" />
 	<h2>You have the following credit cards:</h2>
 
 
@@ -37,9 +39,13 @@
 						<td>
 							<form action="deletecard">
 								<input type="hidden" name="cardNumber"
-									value="${card.cardNumber}"> <input
-									type="submit" name="delete" value="Delete" />
-							</form>
+									value="${card.cardNumber}"> <input type="submit"
+									name="delete" value="Delete" onclick="myFunction2()" />
+							</form> <script>
+								function myFunction2() {
+									alert("Are you sure you want to delete?");
+								}
+							</script>
 						</td>
 					</tr>
 

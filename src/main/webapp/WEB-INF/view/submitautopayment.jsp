@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="/bennav" />
+	<jsp:include page="/autopaymentnav" />
 	  <h2>Thanku ${name}</h2>
 	  <h2> Beneficiary gone for approval.</h2>
 </body>

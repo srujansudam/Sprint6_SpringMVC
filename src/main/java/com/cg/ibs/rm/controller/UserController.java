@@ -1,5 +1,6 @@
 package com.cg.ibs.rm.controller;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -102,12 +103,11 @@ public class UserController {
 		try {
 			uci = customerService.returnUCI(userName);
 			modelAndView.addObject("name", customerService.returnName(uci));
-			modelAndView.addObject("uci", uci);
 			modelAndView.setViewName("custfinal");
 
 		} catch (IBSExceptions e) {
-			modelAndView.setViewName("custfinal");
-			modelAndView.addObject("name", e.getMessage());
+			modelAndView.setViewName("exceptionpage");
+			modelAndView.addObject("exception", e.getMessage());
 		}
 		return modelAndView;
 	}
@@ -124,12 +124,12 @@ public class UserController {
 		card.setDateOfExpiry(date);
 		try {
 			creditCard.saveCardDetails(uci, card);
-			mv.addObject("name", "ABC");
+			mv.addObject("name", customerService.returnName(uci));
 			mv.setViewName("submitcard");
 
 		} catch (IBSExceptions e) {
-			mv.setViewName("custfinal");
-			mv.addObject("name", e.getMessage());
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		return mv;
 	}
@@ -141,7 +141,8 @@ public class UserController {
 			mv.addObject("savedCards", creditCard.showCardDetails(uci));
 			mv.setViewName("viewcard");
 		} catch (IBSExceptions e) {
-			e.printStackTrace();
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		return mv;
 	}
@@ -158,7 +159,8 @@ public class UserController {
 				}
 
 			} catch (IBSExceptions e) {
-				modelAndView.setViewName("viewcard");
+				modelAndView.setViewName("exceptionpage");
+				modelAndView.addObject("exception", e.getMessage());
 			}
 		}
 
@@ -196,12 +198,11 @@ public class UserController {
 		beneficiary.setTimestamp(LocalDateTime.now());
 		try {
 			beneficiaryservice.saveBeneficiaryAccountDetails(uci, beneficiary);
-			mv.addObject("name", "ABC");
+			mv.addObject("name", customerService.returnName(uci));
 			mv.setViewName("submitben");
-
 		} catch (IBSExceptions e) {
-			mv.setViewName("custfinal");
-			mv.addObject("name", e.getMessage());
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		return mv;
 	}
@@ -212,12 +213,11 @@ public class UserController {
 		beneficiary.setTimestamp(LocalDateTime.now());
 		try {
 			beneficiaryservice.saveBeneficiaryAccountDetails(uci, beneficiary);
-			mv.addObject("name", "ABC");
+			mv.addObject("name", customerService.returnName(uci));
 			mv.setViewName("submitben");
-
 		} catch (IBSExceptions e) {
-			mv.setViewName("custfinal");
-			mv.addObject("name", e.getMessage());
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		return mv;
 	}
@@ -229,7 +229,8 @@ public class UserController {
 			mv.addObject("savedBeneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
 			mv.setViewName("viewben");
 		} catch (IBSExceptions e) {
-			e.printStackTrace();
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		return mv;
 	}
@@ -249,10 +250,53 @@ public class UserController {
 				mv.setViewName("modifyinother");
 			}
 		} catch (IBSExceptions e) {
-			e.printStackTrace();
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		return mv;
+	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/modifyinibs")
+	public String modifyibs() {
+		return "modifyinibs";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/modifyinother")
+	public String modifyother() {
+		return "modifyinother";
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/modifyinother")
+	public ModelAndView modifyOtherBeneficiary(@ModelAttribute Beneficiary beneficiary) {
+		ModelAndView mv = new ModelAndView();
+		beneficiary.setTimestamp(LocalDateTime.now());
+		try {
+			beneficiaryservice.modifyBeneficiaryAccountDetails(beneficiary.getAccountNumber(), beneficiary);
+			mv.addObject("name", customerService.returnName(uci));
+			mv.setViewName("submitben");
+		} catch (IBSExceptions | IOException e) {
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
+		}
+		return mv;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/modifyinibs")
+	public ModelAndView modifyIbsBeneficiary(@ModelAttribute Beneficiary beneficiary) {
+		ModelAndView mv = new ModelAndView();
+		beneficiary.setTimestamp(LocalDateTime.now());
+		try {
+			beneficiary.setBankName("IBS");
+			beneficiary.setIfscCode("IBS45623778");
+			beneficiaryservice.modifyBeneficiaryAccountDetails(beneficiary.getAccountNumber(), beneficiary);
+			mv.addObject("name", customerService.returnName(uci));
+			mv.setViewName("submitben");
+
+		} catch (IBSExceptions | IOException e) {
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
+		}
+		return mv;
 	}
 
 	@RequestMapping("/deleteben")
@@ -267,7 +311,8 @@ public class UserController {
 				}
 
 			} catch (IBSExceptions e) {
-				modelAndView.setViewName("viewben");
+				modelAndView.setViewName("exceptionpage");
+				modelAndView.addObject("exception", e.getMessage());
 			}
 		}
 		return modelAndView;
@@ -290,8 +335,10 @@ public class UserController {
 			Set<AccountBean> accounts = accountService.getAccountsOfUci(uci);
 			mv.addObject("accounts", accounts);
 			mv.setViewName("addautopayment");
+
 		} catch (IBSExceptions e) {
-			e.printStackTrace();
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		mv.setViewName("addautopayment");
 		return mv;
@@ -311,12 +358,12 @@ public class UserController {
 		autoPayment.setServiceProviderId(new ServiceProviderId(spId, uci));
 		try {
 			autoPaymentService.autoDeduction(spId, accountNumber, autoPayment);
-			mv.addObject("name", "ABC");
+			mv.addObject("name", customerService.returnName(uci));
 			mv.setViewName("submitautopayment");
 
 		} catch (IBSExceptions e) {
-			mv.setViewName("custfinal");
-			mv.addObject("name", e.getMessage());
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		return mv;
 	}
@@ -328,17 +375,12 @@ public class UserController {
 			mv.addObject("savedBeneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
 			mv.setViewName("viewautopayment");
 		} catch (IBSExceptions e) {
-			e.printStackTrace();
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
 		}
 		return mv;
 	}
 
-//
-//	@RequestMapping(method = RequestMethod.POST, value = "/modifybeneficiary")
-//	public ModelAndView modifybeneficiary() {
-//
-//	}
-//
 	@RequestMapping("/deleteautopayment")
 	public ModelAndView deleteAutoPayment(@RequestParam BigInteger accountNumber, @RequestParam String delete) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -351,7 +393,8 @@ public class UserController {
 				}
 
 			} catch (IBSExceptions e) {
-				modelAndView.setViewName("viewautopayment");
+				modelAndView.setViewName("exceptionpage");
+				modelAndView.addObject("exception", e.getMessage());
 			}
 		}
 

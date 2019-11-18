@@ -3,9 +3,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Add Beneficiary type</title>
 </head>
 <body>
+	<jsp:include page="/remnav" />
+	<jsp:include page="/bennav" />
 	<h3>Choose</h3>
 
 	<a href="samebank">
@@ -16,6 +18,6 @@
 		<button>In Other Banks</button>
 	</a>
 
-	<jsp:include page="/bennav" />
+
 </body>
 </html>

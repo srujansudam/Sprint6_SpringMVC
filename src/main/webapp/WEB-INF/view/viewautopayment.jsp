@@ -10,6 +10,8 @@
 <title>Credit Cards</title>
 </head>
 <body>
+	<jsp:include page="/remnav" />
+	<jsp:include page="/bennav" />
 	<h2>You have the following beneficiaries:</h2>
 
 
@@ -41,14 +43,29 @@
 						<td>${beneficiary.type}</td>
 						<td>${beneficiary.status}</td>
 
-						<td><input type="submit" name="modify" value="Modify"
-							onclick="modifyben" /></td>
 						<td>
-							<form action="deleteben">
+							<form action="modifyautopayment">
 								<input type="hidden" name="accountNumber"
 									value="${beneficiary.accountNumber}"> <input
-									type="submit" name="delete" value="Delete" />
+									type="submit" name="modify" value="Modify"
+									onclick="myFunction()" />
 							</form>
+						</td>
+						<td>
+							<form action="deleteautopayment">
+								<input type="hidden" name="accountNumber"
+									value="${beneficiary.accountNumber}"> <input
+									type="submit" name="delete" value="Delete"
+									onclick="myFunction2()" />
+							</form> <script>
+								function myFunction() {
+									alert("Are you sure you want to modify?");
+								}
+
+								function myFunction2() {
+									alert("Are you sure you want to delete?");
+								}
+							</script>
 						</td>
 					</tr>
 

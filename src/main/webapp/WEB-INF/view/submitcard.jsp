@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="/remnav" />
 	<jsp:include page="/cardnav" />
 	  <h2>Thanku ${name}</h2>
 	  <h2> Credit Card gone for approval.</h2>

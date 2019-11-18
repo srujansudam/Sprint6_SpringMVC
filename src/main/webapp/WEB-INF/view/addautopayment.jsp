@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Add Auto-payment</title>
 <style type="text/css">
 label {
 	display: block;
@@ -19,13 +19,12 @@ label {
 
 </head>
 <body>
+	<jsp:include page="/remnav" />
 	<jsp:include page="/autopaymentnav" />
 	<h3>Enter the following details</h3>
 	<form method="post" action="/addautopayment">
-		<div>
-			<label>UserId:</label> <input type="text" name="userId" required />
-		</div>
-	<%-- <div>
+
+		<%-- <div>
 		<label>Account</label> <select name="accountNumber">
 		<c:forEach var="account" items="${accounts}">
 
@@ -62,8 +61,15 @@ label {
 			<label>Name of Service:</label> <input type="text" name="serviceName"
 				required pattern="^[a-zA-z]+$" />
 		</div>
+
 		<div>
-			<input type="submit" value="SUBMIT" />
+			<button onclick="myFunction()">SUBMIT</button>
+
+			<script>
+				function myFunction() {
+					alert("Are you sure you want to submit?");
+				}
+			</script>
 		</div>
 
 	</form>

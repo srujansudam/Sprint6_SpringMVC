@@ -6,17 +6,22 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="/remnav" />
+<jsp:include page="/bennav" />
 <h3>Enter Details</h3>
-	<form  method="post" >
+	<form  method=post action="modifyinibs" >
 	Type of Account:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<select name="type" >
 			
-			<option value="MYACCOUNTINIBS">MY ACCOUNT IN IBS</option>
-			<option value="OTHERSACCOUNTINIBS">OTHERS ACCOUNT IN IBS</option>
+			<option value="${beneficiary.type}">${beneficiary.type}</option>
+			
 	</select>
 		<div>
 			<label>Account Number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="number"
-				name="accountNumber" required maxlength="11" />
+				name="accountNumber1" value="${beneficiary.accountNumber}" disabled="disabled"/>
+				
+				<input type="hidden"
+				name="accountNumber" value="${beneficiary.accountNumber}"/>
 		</div>
 
 		<div>
@@ -24,10 +29,7 @@
 				name="accountName" required pattern="^[a-zA-z]+([\\s][a-zA-Z]+)*$" />
 		</div>
 	
-		<input type="submit" value="Submit" >
-
-
-
+		<input type="submit" value="MODIFY" >
 	</form>
 	
 

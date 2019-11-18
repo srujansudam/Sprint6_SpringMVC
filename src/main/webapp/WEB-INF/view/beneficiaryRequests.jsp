@@ -45,10 +45,23 @@
 							<form action="acceptBeneficiaries">
 								<input type="hidden" name="accountNumber"
 									value="${beneficiary.accountNumber}"> <input
-									type="submit" name="decision" value="Approve">
-								&nbsp;&nbsp; <input type="submit" name="decision"
-									value="Decline"> &nbsp;
+									type="submit" name="decision" value="Approve"
+									onclick="myFunction()"> &nbsp;&nbsp; <input
+									type="submit" name="decision" value="Decline"
+									onclick="myFunction2()"> &nbsp;
 							</form>
+							<div>
+								<script>
+									function myFunction() {
+										alert("Are you sure you want to approve?");
+									}
+
+									function myFunction2() {
+										alert("Are you sure you want to decline?");
+									}
+									
+								</script>
+							</div>
 						</td>
 					</tr>
 				</c:forEach>

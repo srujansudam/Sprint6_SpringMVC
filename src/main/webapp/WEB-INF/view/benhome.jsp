@@ -6,7 +6,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>WELCOME TO THE BENEFICIARY SECTION</h1>
+<jsp:include page="/remnav" />
 <jsp:include page="/bennav" />
+	<h1>WELCOME TO THE BENEFICIARY SECTION</h1>
+	
+
 </body>
 </html>

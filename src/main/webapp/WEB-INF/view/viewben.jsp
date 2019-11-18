@@ -12,6 +12,8 @@
 <title>Credit Cards</title>
 </head>
 <body>
+	<jsp:include page="/remnav" />
+	<jsp:include page="/bennav" />
 	<h2>You have the following beneficiaries:</h2>
 
 
@@ -34,7 +36,9 @@
 					<th>Modify</th>
 					<th>Delete</th>
 				</tr>
-				<%String status= Status.PENDING.toString(); %>
+				<%
+					String status = Status.PENDING.toString();
+				%>
 				<c:forEach var="beneficiary" items="${savedBeneficiaries}">
 					<tr>
 						<td>${beneficiary.accountNumber}</td>
@@ -46,14 +50,27 @@
 						<td><form action="modifybeneficiary">
 								<input type="hidden" name="accountNumber"
 									value="${beneficiary.accountNumber}"> <input
-									type="submit" name="modify" value="Modify" />
+									type="submit" name="modify" value="Modify"
+									onclick="myFunction()" />
 							</form></td>
 						<td>
 							<form action="deleteben">
 								<input type="hidden" name="accountNumber"
 									value="${beneficiary.accountNumber}"> <input
-									type="submit" name="delete" value="Delete" />
+									type="submit" name="delete" value="Delete"
+									onclick="myFunction2()" />
 							</form>
+							<div>
+								<script>
+									function myFunction() {
+										alert("Are you sure you want to modify?");
+									}
+
+									function myFunction2() {
+										alert("Are you sure you want to delete?");
+									}
+								</script>
+							</div>
 						</td>
 					</tr>
 

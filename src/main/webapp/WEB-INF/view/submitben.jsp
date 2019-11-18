@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="/remnav" />
 	<jsp:include page="/bennav" />
-	  <h2>Thanku ${name}</h2>
-	  <h2> Beneficiary gone for approval.</h2>
+	<h2>Thanku ${name}</h2>
+	<h2>Beneficiary gone for approval.</h2>
 </body>
 </html>

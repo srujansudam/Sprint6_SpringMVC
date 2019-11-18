@@ -13,15 +13,35 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="/remnav" />
 	<jsp:include page="/cardnav" />
 	<h3>Enter the following details</h3>
+	<h3>Enter Details</h3>
+	<script type="text/javascript">
+		function check() {
+
+			var a = document.getElementById("a").value;
+			var b = document.getElementById("b").value;
+
+			if (a != b) {
+				alert("card numbers do not match");
+				return false;
+			} else {
+				alert("Are you sure you want to submit?");
+				return true;
+			}
+
+		}
+	</script>
+
 	<form method="post">
 		<div>
-			<label>UserId:</label> <input type="text" name="userId" required />
+			<label>Card Number:</label> <input id="a" type="password"
+				name="cardNumber" required pattern="^[0-9]{16}$" />
 		</div>
 		<div>
-			<label>Card Number:</label> <input type="text" name="cardNumber"
-				required pattern="^[0-9]{16}$" />
+			<label>Confirm Card Number:</label> <input id="b" type="text"
+				name="cardNumber1" required pattern="^[0-9]{16}$" />
 		</div>
 		<div>
 			<label>Credit Card Score:</label> <input type="number"
@@ -87,9 +107,10 @@
 
 			</select>
 		</div>
-		<div>
 
-			<input type="submit" value="SUBMIT" />
+		<div>
+			<button onclick="return check()">SUBMIT</button>
+
 		</div>
 
 	</form>

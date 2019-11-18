@@ -6,7 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="/remnav" />
 	<h1>WELCOME TO THE REMITTANCE SECTION</h1>
-	<jsp:include page="/remnav" />
+	
 </body>
 </html>

@@ -7,9 +7,9 @@
 </head>
 <body>
 <h1>WELCOME TO THE REMITTANCE SECTION</h1>
-</br><h2>PLEASE CHOOSE YOUR IDENTITY</h2>
+<br><h2>PLEASE CHOOSE YOUR IDENTITY</h2>
 <form  method="get" action="customer" >
-<a href="userinput"><button>CUSTOMER</button> </br></a>
+<a href="userinput"><button>CUSTOMER</button> <br></a>
 <button>BANK ADMIN</button>
 </form>
 </body>
