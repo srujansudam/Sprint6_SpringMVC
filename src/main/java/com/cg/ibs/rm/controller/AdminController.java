@@ -13,7 +13,6 @@ import com.cg.ibs.rm.exception.IBSExceptions;
 import com.cg.ibs.rm.service.Bank_AdminService;
 
 @Controller
-
 public class AdminController {
 	
 	@Autowired

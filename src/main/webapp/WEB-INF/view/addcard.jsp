@@ -15,7 +15,7 @@
 <body>
 	<jsp:include page="/cardnav" />
 	<h3>Enter the following details</h3>
-	<form method="post" action="/addcard">
+	<form method="post">
 		<div>
 			<label>UserId:</label> <input type="text" name="userId" required />
 		</div>

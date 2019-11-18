@@ -36,7 +36,7 @@
 						<td>${card.cardStatus}</td>
 						<td>
 							<form action="deletecard">
-								<input type="hidden" name="accountNumber"
+								<input type="hidden" name="cardNumber"
 									value="${card.cardNumber}"> <input
 									type="submit" name="delete" value="Delete" />
 							</form>

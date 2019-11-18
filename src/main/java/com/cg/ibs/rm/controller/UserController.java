@@ -3,12 +3,11 @@ package com.cg.ibs.rm.controller;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.ibs.rm.exception.IBSExceptions;
+import com.cg.ibs.rm.model.AccountBean;
+import com.cg.ibs.rm.model.AutoPayment;
 import com.cg.ibs.rm.model.Beneficiary;
 import com.cg.ibs.rm.model.CreditCard;
+import com.cg.ibs.rm.model.ServiceProvider;
+import com.cg.ibs.rm.model.ServiceProviderId;
+import com.cg.ibs.rm.service.AccountService;
 import com.cg.ibs.rm.service.AutoPaymentService;
 import com.cg.ibs.rm.service.BeneficiaryAccountService;
 import com.cg.ibs.rm.service.CreditCardService;
@@ -38,6 +42,8 @@ public class UserController {
 	private CreditCardService creditCard;
 	@Autowired
 	private CustomerService custService;
+	@Autowired
+	private AccountService accountService;
 	@Autowired
 	private BeneficiaryAccountService beneficiaryservice;
 
@@ -139,6 +145,26 @@ public class UserController {
 		return mv;
 	}
 
+	@RequestMapping("/deletecard")
+	public ModelAndView deleteCreditCard(@RequestParam BigInteger cardNumber, @RequestParam String delete) {
+		ModelAndView modelAndView = new ModelAndView();
+		if (delete.equalsIgnoreCase("Delete")) {
+			try {
+				boolean check = creditCard.deleteCardDetails(cardNumber);
+				if (check) {
+					modelAndView.addObject("savedCards", creditCard.showCardDetails(uci));
+					modelAndView.setViewName("viewcard");
+				}
+
+			} catch (IBSExceptions e) {
+				modelAndView.setViewName("viewcard");
+			}
+		}
+
+		return modelAndView;
+
+	}
+
 	@RequestMapping("/beneficiary")
 	public ModelAndView showBenHome() {
 		ModelAndView mv = new ModelAndView();
@@ -207,12 +233,13 @@ public class UserController {
 		return mv;
 	}
 
-//
-//	@RequestMapping(method = RequestMethod.POST, value = "/modifybeneficiary")
-//	public ModelAndView modifybeneficiary() {
-//
-//	}
-//
+
+	@RequestMapping(method = RequestMethod.POST, value = "/modifybeneficiary")
+	public ModelAndView modifybeneficiary() {
+		
+	}
+
+	
 	@RequestMapping("/deleteben")
 	public ModelAndView deletebeneficiary(@RequestParam BigInteger accountNumber, @RequestParam String delete) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -220,32 +247,96 @@ public class UserController {
 			try {
 				boolean check = beneficiaryservice.deleteBeneficiaryAccountDetails(accountNumber);
 				if (check) {
-					modelAndView.addObject("beneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
+					modelAndView.addObject("savedBeneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
 					modelAndView.setViewName("viewben");
 				}
-
+			
 			} catch (IBSExceptions e) {
 				modelAndView.setViewName("viewben");
 			}
 		}
-
 		return modelAndView;
-
 	}
 
-	@RequestMapping("/deletecard")
-	public ModelAndView deleteCreditCard(@RequestParam BigInteger cardNumber, @RequestParam String delete) {
+	@RequestMapping("/autopayment")
+	public String showAutoPaymentHome() {
+		return "autopaymenthome";
+	}
+
+	@RequestMapping("/autopaymentnav")
+	public String autoPaymentNav() {
+		return "autopaymentnav";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/addautopayment")
+	public ModelAndView addAutoPayment() {
+		ModelAndView mv = new ModelAndView();
+		try {
+			Set<AccountBean> accounts = accountService.getAccountsOfUci(uci);
+			mv.addObject("accounts", accounts);
+			mv.setViewName("addautopayment");
+		} catch (IBSExceptions e) {
+			e.printStackTrace();
+		}
+		mv.setViewName("addautopayment");
+		return mv;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/addautopayment")
+	public ModelAndView addAutoPaymentDetails(@ModelAttribute AutoPayment autoPayment,
+			@RequestParam("account") BigInteger accountNumber) {
+		ModelAndView mv = new ModelAndView();
+		BigInteger spId = null;
+		Set<ServiceProvider> serviceProviders = autoPaymentService.showIBSServiceProviders();
+		for (ServiceProvider serviceProvider : serviceProviders) {
+			if (serviceProvider.getNameOfCompany().equals(autoPayment.getServiceName())) {
+				spId = serviceProvider.getSpi();
+			}
+		}
+		autoPayment.setServiceProviderId(new ServiceProviderId(spId, uci));
+		try {
+			autoPaymentService.autoDeduction(spId, accountNumber, autoPayment);
+			mv.addObject("name", "ABC");
+			mv.setViewName("submitautopayment");
+
+		} catch (IBSExceptions e) {
+			mv.setViewName("custfinal");
+			mv.addObject("name", e.getMessage());
+		}
+		return mv;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/viewautopayment")
+	public ModelAndView viewAutoPayments() {
+		ModelAndView mv = new ModelAndView();
+		try {
+			mv.addObject("savedBeneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
+			mv.setViewName("viewautopayment");
+		} catch (IBSExceptions e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+
+//
+//	@RequestMapping(method = RequestMethod.POST, value = "/modifybeneficiary")
+//	public ModelAndView modifybeneficiary() {
+//
+//	}
+//
+	@RequestMapping("/deleteautopayment")
+	public ModelAndView deleteAutoPayment(@RequestParam BigInteger accountNumber, @RequestParam String delete) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (delete.equalsIgnoreCase("Delete")) {
 			try {
-				boolean check = creditCard.deleteCardDetails(cardNumber);
+				boolean check = beneficiaryservice.deleteBeneficiaryAccountDetails(accountNumber);
 				if (check) {
-					modelAndView.addObject("savedCards", creditCard.showCardDetails(uci));
-					modelAndView.setViewName("viewcard");
+					modelAndView.addObject("beneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
+					modelAndView.setViewName("viewautopayment");
 				}
 
 			} catch (IBSExceptions e) {
-				modelAndView.setViewName("viewcard");
+				modelAndView.setViewName("viewautopayment");
 			}
 		}
 
