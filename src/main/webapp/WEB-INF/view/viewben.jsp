@@ -1,3 +1,5 @@
+<%@page import="com.cg.ibs.rm.ui.Status"%>
+<%@page import="com.cg.ibs.rm.ui.Type"%>
 <%@page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -32,6 +34,7 @@
 					<th>Modify</th>
 					<th>Delete</th>
 				</tr>
+				<%String status= Status.PENDING.toString(); %>
 				<c:forEach var="beneficiary" items="${savedBeneficiaries}">
 					<tr>
 						<td>${beneficiary.accountNumber}</td>
@@ -40,9 +43,11 @@
 						<td>${beneficiary.bankName}</td>
 						<td>${beneficiary.type}</td>
 						<td>${beneficiary.status}</td>
-
-						<td><input type="submit" name="modify" value="Modify"
-							onclick="modifyben" /></td>
+						<td><form action="modifybeneficiary">
+								<input type="hidden" name="accountNumber"
+									value="${beneficiary.accountNumber}"> <input
+									type="submit" name="modify" value="Modify" />
+							</form></td>
 						<td>
 							<form action="deleteben">
 								<input type="hidden" name="accountNumber"

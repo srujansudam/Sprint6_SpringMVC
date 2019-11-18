@@ -27,6 +27,7 @@ import com.cg.ibs.rm.service.AutoPaymentService;
 import com.cg.ibs.rm.service.BeneficiaryAccountService;
 import com.cg.ibs.rm.service.CreditCardService;
 import com.cg.ibs.rm.service.CustomerService;
+import com.cg.ibs.rm.ui.Type;
 
 @RequestMapping("/")
 @Controller
@@ -233,13 +234,27 @@ public class UserController {
 		return mv;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/modifybeneficiary")
+	public ModelAndView modifybeneficiary(@RequestParam("accountNumber") BigInteger accountNumber) {
+		ModelAndView mv = new ModelAndView();
+		Beneficiary beneficiary;
+		try {
+			beneficiary = beneficiaryservice.getBeneficiary(accountNumber);
+			if (beneficiary.getType().equals(Type.MYACCOUNTINIBS)
+					|| beneficiary.getType().equals(Type.OTHERSACCOUNTINIBS)) {
+				mv.addObject(beneficiary);
+				mv.setViewName("modifyinibs");
+			} else {
+				mv.addObject(beneficiary);
+				mv.setViewName("modifyinother");
+			}
+		} catch (IBSExceptions e) {
+			e.printStackTrace();
+		}
+		return mv;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/modifybeneficiary")
-	public ModelAndView modifybeneficiary() {
-		
 	}
 
-	
 	@RequestMapping("/deleteben")
 	public ModelAndView deletebeneficiary(@RequestParam BigInteger accountNumber, @RequestParam String delete) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -250,7 +265,7 @@ public class UserController {
 					modelAndView.addObject("savedBeneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
 					modelAndView.setViewName("viewben");
 				}
-			
+
 			} catch (IBSExceptions e) {
 				modelAndView.setViewName("viewben");
 			}
