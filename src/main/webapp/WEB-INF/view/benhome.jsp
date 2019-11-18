@@ -6,10 +6,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/remnav" />
-<jsp:include page="/bennav" />
-	<h1>WELCOME TO THE BENEFICIARY SECTION</h1>
-	
 
+<div align="center" style="font-size: large;">
+<jsp:include page="/remnav" /></div>
+	<h1 align="center" style="font-size: xx-large; background-color: aliceblue;">WELCOME TO THE BENEFICIARY SECTION</h1>
+	<div align="center" style="font-size: xx-large; margin-top:100">
+<jsp:include page="/bennav" /></div>
 </body>
 </html>

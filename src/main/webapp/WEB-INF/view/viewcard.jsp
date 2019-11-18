@@ -10,9 +10,8 @@
 <title>Credit Cards</title>
 </head>
 <body>
-	<jsp:include page="/remnav" />
-	<jsp:include page="/cardnav" />
-	<h2>You have the following credit cards:</h2>
+
+	<h2 align="center">You have the following credit cards:</h2>
 
 
 	<c:choose>
@@ -22,17 +21,18 @@
 			</p>
 		</c:when>
 		<c:otherwise>
-			<table border="1">
+		<div align="center">
+			<table border="1" >
 				<tr>
-					<th>Card Number</th>
-					<th>Card Name</th>
-					<th>Card Expiry</th>
-					<th>Card Status</th>
-					<th colspan="2">Delete</th>
+					<th rowspan="1.5">Card Number</th>
+					<th rowspan="1.5">Card Name</th>
+					<th rowspan="1.5">Card Expiry</th>
+					<th rowspan="1.5">Card Status</th>
+					<th rowspan="1.5">Delete</th>
 				</tr>
 				<c:forEach var="card" items="${savedCards}">
 					<tr>
-						<td>${card.cardNumber}</td>
+						<td >${card.cardNumber}</td>
 						<td>${card.nameOnCard }</td>
 						<td>${card.dateOfExpiry}</td>
 						<td>${card.cardStatus}</td>
@@ -52,10 +52,15 @@
 				</c:forEach>
 
 			</table>
+			</div>
 		</c:otherwise>
 	</c:choose>
 
-
+<div align="center" style="font-size: x-large; margin-top: 100px">
+	  <jsp:include page="/cardnav" />
+	  <jsp:include page="/remnav" />
+	
+	</div>
 </body>
 </body>
 </html>

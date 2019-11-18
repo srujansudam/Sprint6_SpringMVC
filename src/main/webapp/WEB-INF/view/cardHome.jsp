@@ -6,9 +6,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/cardnav" />
-<jsp:include page="/remnav" />
-	<h1>WELCOME TO THE CREDIT CARD SECTION</h1>
-
+<div align="center" style="font-size: large;">
+<jsp:include page="/remnav" /></div>
+	<h1 align="center" style="font-size: xx-large; background-color: aliceblue;">WELCOME TO THE CREDIT CARD SECTION</h1>
+	<div align="center" style="font-size: xx-large; margin-top:100">
+<jsp:include page="/cardnav" /></div>
 </body>
 </html>

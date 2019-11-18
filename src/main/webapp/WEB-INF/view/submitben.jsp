@@ -7,9 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="/remnav" />
-	<jsp:include page="/bennav" />
-	<h2>Thanku ${name}</h2>
-	<h2>Beneficiary gone for approval.</h2>
+		  <h2 align="center" style="font-size: xx-large;">Thanku ${name}</h2>
+	  <h2 align="center" style="font-size: xx-large;">Beneficiary gone for approval.</h2>
+	  <div align="center" style="font-size: x-large; margin-top: 100px">
+	  <jsp:include page="/bennav" />
+	  <jsp:include page="/remnav" />
+	
+	</div>
 </body>
 </html>

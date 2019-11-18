@@ -7,6 +7,6 @@
 	<a href="cards">Cards</a><span>|</span>
 	<a href="investment">Investment Management</a><span>|</span>
 	<a href="remittance">Remittance</a><span>|</span>
-	<a href="userinput">Logout</a> <span>|</span>
+	<a href="logout">Logout</a> 
 </nav>
 <hr />

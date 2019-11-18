@@ -13,10 +13,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="/remnav" />
-	<jsp:include page="/cardnav" />
-	<h3>Enter the following details</h3>
-	<h3>Enter Details</h3>
+
+	<h2 style="background-color: aliceblue; font-family: sans-serif; font-size: x-large;">Enter the following details</h2>
 	<script type="text/javascript">
 		function check() {
 
@@ -33,41 +31,41 @@
 
 		}
 	</script>
-
+	<div style="margin-top: 30">
 	<form method="post">
+
 		<div>
 			<label>Card Number:</label> <input id="a" type="password"
-				name="cardNumber" required pattern="^[0-9]{16}$" />
+				name="cardNumber" required pattern="^[0-9]{16}$" /> &nbsp; &nbsp;
+			&nbsp; &nbsp; &nbsp; &nbsp; 
+			&nbsp; &nbsp; &nbsp; <label>Confirm Card Number:</label> <input
+				id="b" type="text" name="cardNumber1" required pattern="^[0-9]{16}$" />
 		</div>
-		<div>
-			<label>Confirm Card Number:</label> <input id="b" type="text"
-				name="cardNumber1" required pattern="^[0-9]{16}$" />
-		</div>
-		<div>
+		<div style="margin-top: 20">
 			<label>Credit Card Score:</label> <input type="number"
 				name="creditScore" />
 		</div>
-		<div>
+		<div style="margin-top: 20">
 			<label>Credit Card Limit:</label> <input type="number"
 				name="creditLimit" />
 		</div>
-		<div>
+		<div style="margin-top: 20">
 			<label>Income:</label> <input type="number" name="income" />
 		</div>
-		<div>
+		<div style="margin-top: 20">
 			<label>Name on Card:</label> <input type="text" name="nameOnCard"
 				required pattern="^[a-zA-z]+([\\s][a-zA-Z]+)*$" />
 		</div>
-		<div>
+		<div style="margin-top: 20">
 			<label>CVV Number:</label> <input type="text" name="cvvNum" />
 		</div>
-		<div>
+		<div style="margin-top: 20">
 			<label>Credit Card Pin:</label> <input type="text" name="currentPin" />
 		</div>
-		<div>
+		<div style="margin-top: 20">
 			<label>Credit Card Type:</label> <input type="text" name="cardType" />
 		</div>
-		<div>
+		<div style="margin-top: 20">
 			<label>Expiry Date: MM-</label> <select name="month">
 
 				<option value="01">01</option>
@@ -108,12 +106,19 @@
 			</select>
 		</div>
 
-		<div>
+		<div style="margin-top: 20">
 			<button onclick="return check()">SUBMIT</button>
 
 		</div>
 
 	</form>
+	</div>
+	<div style="margin-top: 300">
+		<div align="center" style="font-size: large;">
+			<jsp:include page="/remnav" /></div>
+		<div align="center" style="font-size: large;">
+			<jsp:include page="/cardnav" /></div>
+	</div>
 
 </body>
 </html>

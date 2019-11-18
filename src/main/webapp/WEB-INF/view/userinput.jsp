@@ -7,10 +7,12 @@
 <meta charset="utf-8">
 <title>Home Page</title>
 </head>
+
 <body>
-<marquee ><font color="red">WELCOME!</font></marquee>
+<marquee style="font-size:xx-large; font-weight: 800"><font color="black">WELCOME USER!</font></marquee>
+
 	<form method="post" action="userinput">
-		<div>
+		<div align="center">
 			Enter User-Name:<br> <input type="text" name="userId" required><br> Enter
 			Password:<br> <input type="password" name="password" required><br>
 			<button>LOGIN</button>

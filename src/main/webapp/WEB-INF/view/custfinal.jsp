@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Customer Login</title>
 </head>
 <body>
-	  <h2>WELCOME ${name}</h2>
-	<jsp:include page="/custnav" />
+	  <h2 align="center" style="font-size: xx-large; background-color: aliceblue">Welcome ${name}</h2>
+	  <div align="center" style="font-size: x-large; margin-top: 100px">
+	<jsp:include page="/custnav" /></div>
 </body>
 </html>

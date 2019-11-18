@@ -6,8 +6,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/remnav" />
-	<h1>WELCOME TO THE REMITTANCE SECTION</h1>
-	
+
+	<h1 align="center" style="font-size: xx-large; background-color: aliceblue">WELCOME TO THE REMITTANCE SECTION</h1>
+	<div align="center" style="font-size: x-large; margin-top: 100">
+	<jsp:include page="/remnav" />
+	</div>
 </body>
 </html>

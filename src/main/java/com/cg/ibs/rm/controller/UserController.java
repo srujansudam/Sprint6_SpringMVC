@@ -92,8 +92,12 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/userinput")
-	public String logout() {
+	public String userinput() {
 		return "userinput";
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "/logout")
+	public String logout() {
+		return "logout";
 	}
 
 	@ExceptionHandler(IBSExceptions.class)

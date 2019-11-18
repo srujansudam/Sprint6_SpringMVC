@@ -12,9 +12,8 @@
 <title>Credit Cards</title>
 </head>
 <body>
-	<jsp:include page="/remnav" />
-	<jsp:include page="/bennav" />
-	<h2>You have the following beneficiaries:</h2>
+
+	<h2 align="center">You have the following beneficiaries:</h2>
 
 
 	<c:choose>
@@ -25,6 +24,7 @@
 			</p>
 		</c:when>
 		<c:otherwise>
+		<div align="center">
 			<table border="1">
 				<tr>
 					<th>Beneficiary Account No</th>
@@ -77,11 +77,18 @@
 				</c:forEach>
 
 			</table>
+			</div>
 		</c:otherwise>
 	</c:choose>
 	<form>
 		<div></div>
 	</form>
+<div style="margin-top: 300">
+		<div align="center" style="font-size: large;">
+			<jsp:include page="/remnav" /></div>
+		<div align="center" style="font-size: large;">
+			<jsp:include page="/bennav" /></div>
+	</div>
 
 </body>
 </body>

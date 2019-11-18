@@ -6,18 +6,22 @@
 <title>Add Beneficiary type</title>
 </head>
 <body>
-	<jsp:include page="/remnav" />
-	<jsp:include page="/bennav" />
-	<h3>Choose</h3>
+	
+	<h1 align="center">Choose type of account:</h1>
 
-	<a href="samebank">
-		<button>In IBS</button>
+	<a href="samebank" >
+		<button style="margin-left: 510; height: 100px; font-weight: 700; width: 100px">In IBS</button>
 	</a>
-
+&nbsp;&nbsp;&nbsp;
 	<a href="otherbank">
-		<button>In Other Banks</button>
+		<button style="height: 100px; font-weight: 700;">In Other Banks</button>
 	</a>
 
-
+<div style="margin-top: 300">
+		<div align="center" style="font-size: large;">
+			<jsp:include page="/remnav" /></div>
+		<div align="center" style="font-size: large;">
+			<jsp:include page="/bennav" /></div>
+	</div>
 </body>
 </html>
