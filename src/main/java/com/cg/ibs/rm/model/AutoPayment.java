@@ -52,7 +52,7 @@ public class AutoPayment implements Serializable {
 	@Override
 	public String toString() {
 		return "AutoPayment [serviceProviderId=" + serviceProviderId + ", amount=" + amount + ", dateOfStart="
-				+ dateOfStart + ", dateOfEnd=" + dateOfEnd + ", transactions=" + transactions + "]";
+				+ dateOfStart + ", dateOfEnd=" + dateOfEnd +  "]";
 	}
 
 	public String getServiceName() {

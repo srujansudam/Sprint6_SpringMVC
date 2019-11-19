@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Home Page</title>
+<title>Home Page-User</title>
 </head>
 
 <body>
-<marquee style="font-size:xx-large; font-weight: 800"><font color="black">WELCOME USER!</font></marquee>
+<marquee style="font-size:xx-large; font-weight: 800; background-color: aliceblue"><font color="black">WELCOME USER!</font></marquee>
 
 	<form method="post" action="userinput">
 		<div align="center">

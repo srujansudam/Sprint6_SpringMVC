@@ -10,17 +10,18 @@
 <title>beneficiary view</title>
 </head>
 <body>
-	<jsp:include page="/bankadminnav"></jsp:include>
-	<h2>Beneficiaries</h2>
+
+<h1 align="center" style="font-size: xx-large; background-color: aliceblue">Beneficiaries</h1>
 
 
 	<c:choose>
 		<c:when test="${beneficiaries==null or beneficiaries.size()==0 }">
-			<p>
-				<strong>No Records Available</strong>
+			<p align="center" style="font-size: x-large;">
+				<strong>No Records Available!</strong>
 			</p>
 		</c:when>
 		<c:otherwise>
+		<div align="center">
 			<table border="1">
 				<tr>
 					<th>Beneficiary Account No</th>
@@ -66,9 +67,11 @@
 					</tr>
 				</c:forEach>
 			</table>
+			</div>
 		</c:otherwise>
 	</c:choose>
-
+<div align="center" style="font-size: x-large; margin-top:300">
+	<jsp:include page="/bankadminnav" /></div>
 </body>
 
 </html>

@@ -1,13 +1,14 @@
 <hr />
 <nav>
 	
-	<a href="identity">Profile</a> <span>|</span>
-	<a href="accounts">Accounts</a> <span>|</span>
-	<a href="loan">Loan Management</a><span>|</span>
-	<a href="service">IBS Services</a> <span>|</span>	
-	<a href="cards">Cards</a><span>|</span>
-	<a href="investment">Investment Management</a><span>|</span>
+	<a href="exception">Profile</a> <span>|</span>
+	<a href="exception">Accounts</a> <span>|</span>
+	<a href="exception">Loan Management</a><span>|</span>
+	<a href="exception">IBS Services</a> <span>|</span>	
+	<a href="exception">Cards</a><span>|</span>
+	<a href="exception">Investment Management</a><span>|</span>
 	<a href="bankadmin">Remittance Management</a> <span>|</span>	
+	<a href="logoutadmin">Logout</a>
 	
 </nav>
 <hr />

@@ -14,39 +14,35 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Add Auto payment</title>
-<style type="text/css">
-label {
-	display: block;
-}
-</style>
-
+<title>Modify Auto Payment</title>
 </head>
 <body>
-	<h3>Enter the following details</h3>
-	<form method="post">
-		<div>
-			<select name="accountNumber">
-				<option>--SELECT ACCOUNT--</option>
-				<c:forEach var="account" items="${accounts}">
 
-					<option value="${account.accNo}">${account.accNo}</option>
-				</c:forEach>
-			</select>
-		</div>
+	<h2
+		style="background-color: aliceblue; font-family: sans-serif; font-size: x-large;">Enter
+		the details to be modified:</h2>
+	<form method=post action="modifyautopayment">
+
+		<label>Service
+			Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		<input type="text" name="serviceName"
+			value="${autoPayment.serviceName}" disabled="disabled" />
+			<input type="hidden" name="spi"
+			value="${spi}" />
+		<%
+			LocalDate date = LocalDate.now();
+		%>
 		<div>
 			<label>Amount:</label> <input type="number" name="amount" />
 		</div>
 		<div>
-
 			<label>Start date: <input type=date id=start
-				name="dateOfStart" required></label><br>
+				name="dateOfStart" required min="${date}"></label><br>
 		</div>
 		<div>
 			<label>End date: <input type=date id=end name="dateOfEnd"
-				required></label><br>
+				></label><br>
 		</div>
-
 		<script>
 			var start = document.getElementById('start');
 			var end = document.getElementById('end');
@@ -59,34 +55,21 @@ label {
 					start.max = end.value;
 			}, false);
 		</script>
-		<br>
-		<div>
-			<select name="serviceName">
-				<option>--SELECT SERVICE NAME--</option>
-				<c:forEach var="serviceName" items="${serviceProviders}">
-					<option value="${serviceName.nameOfCompany}">
-						${serviceName.nameOfCompany}</option>
-				</c:forEach>
-			</select>
+		<div style="margin-top: 20">
+			<input type="submit" value="MODIFY" onclick="myFunction()">
 		</div>
 
-
-		<div>
-			<br> <input type="submit" value="SUBMIT" onclick="myFunction()" />
-		</div>
-		<div>
-			<script>
-				function myFunction() {
-					alert("Are you sure you want to submit?");
-				}
-			</script>
-		</div>
+		<script>
+			function myFunction() {
+				alert("Are you sure you want to submit?");
+			}
+		</script>
 	</form>
-<div style="margin-top: 300">
+	<div style="margin-top: 300">
 		<div align="center" style="font-size: large;">
 			<jsp:include page="/remnav" /></div>
 		<div align="center" style="font-size: large;">
-			<jsp:include page="/autopaymentnav" /></div>
+			<jsp:include page="/autopayment" /></div>
 	</div>
 </body>
 </html>

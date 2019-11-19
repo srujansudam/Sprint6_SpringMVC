@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Home Page</title>
+<title>Logout-Home Page</title>
 </head>
 <style>
 br.big{

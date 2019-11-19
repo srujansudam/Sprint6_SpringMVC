@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Home-Page</title>
 </head>
 <style>
 h2.big {

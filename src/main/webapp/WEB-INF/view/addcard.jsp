@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Add Card</title>
 </head>
 <body>
 
@@ -35,10 +35,10 @@
 	<form method="post">
 
 		<div>
-			<label>Card Number:</label> <input id="a" type="password"
+			<label>Card Number(*):</label> <input id="a" type="password"
 				name="cardNumber" required pattern="^[0-9]{16}$" /> &nbsp; &nbsp;
 			&nbsp; &nbsp; &nbsp; &nbsp; 
-			&nbsp; &nbsp; &nbsp; <label>Confirm Card Number:</label> <input
+			&nbsp; &nbsp; &nbsp; <label>Confirm Card Number(*):</label> <input
 				id="b" type="text" name="cardNumber1" required pattern="^[0-9]{16}$" />
 		</div>
 		<div style="margin-top: 20">
@@ -53,7 +53,7 @@
 			<label>Income:</label> <input type="number" name="income" />
 		</div>
 		<div style="margin-top: 20">
-			<label>Name on Card:</label> <input type="text" name="nameOnCard"
+			<label>Name on Card(*):</label> <input type="text" name="nameOnCard"
 				required pattern="^[a-zA-z]+([\\s][a-zA-Z]+)*$" />
 		</div>
 		<div style="margin-top: 20">
@@ -66,7 +66,7 @@
 			<label>Credit Card Type:</label> <input type="text" name="cardType" />
 		</div>
 		<div style="margin-top: 20">
-			<label>Expiry Date: MM-</label> <select name="month">
+			<label>Expiry Date(*): MM-</label> <select name="month">
 
 				<option value="01">01</option>
 				<option value="02">02</option>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Add Beneficiary</title>
 </head>
 <body>
 
@@ -35,15 +35,15 @@
 			<option value="OTHERSACCOUNTINIBS">OTHERS ACCOUNT IN IBS</option>
 		</select>
 		<div style="margin-top: 20">
-			<label>Account Number:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="a" type="password"
+			<label>Account Number(*):</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="a" type="password"
 				name="accountNumber" required pattern="^[0-9]{11}$" />
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<label>Confirm Account Number:</label> <input id="b" type="text"
+			<label>Confirm Account Number(*):</label> <input id="b" type="text"
 				name="accountNumber1" required pattern="^[0-9]{11}$" />
 		</div>
 
 		<div style="margin-top: 20">
-			<label>Account Holder's Name:</label> <input type="text"
+			<label>Account Holder's Name(*):</label> <input type="text"
 				name="accountName" required pattern="^[a-zA-z]+([\\s][a-zA-Z]+)*$" />
 		</div>
 

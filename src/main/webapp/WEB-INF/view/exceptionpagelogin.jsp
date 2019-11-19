@@ -11,7 +11,7 @@
 	  <h2>Going back to Home Page.</h2>
 	  </div>
 	  <div style="margin-top: 100">
-	<jsp:include page="/custfinal" />
+	<jsp:include page="/chooseidentity" />
 	</div>
 </body>
 </html>

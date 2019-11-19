@@ -9,7 +9,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.ibs.rm.exception.IBSExceptions;
-import com.cg.ibs.rm.model.AccountBean;
 import com.cg.ibs.rm.model.AutoPayment;
 import com.cg.ibs.rm.model.Beneficiary;
 import com.cg.ibs.rm.model.CreditCard;
@@ -52,6 +50,11 @@ public class UserController {
 	@RequestMapping({ "/", "/chooseidentity" })
 	public String home() {
 		return "chooseidentity";
+	}
+
+	@RequestMapping("/custfinal")
+	public String custFinal() {
+		return "custfinal";
 	}
 
 	@RequestMapping("/customer")
@@ -95,12 +98,12 @@ public class UserController {
 	public String userinput() {
 		return "userinput";
 	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/logout")
 	public String logout() {
 		return "logout";
 	}
 
-	@ExceptionHandler(IBSExceptions.class)
 	@RequestMapping(method = RequestMethod.POST, value = "/userinput")
 	public ModelAndView getName(@RequestParam("userId") String userName) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -110,7 +113,7 @@ public class UserController {
 			modelAndView.setViewName("custfinal");
 
 		} catch (IBSExceptions e) {
-			modelAndView.setViewName("exceptionpage");
+			modelAndView.setViewName("exceptionpagelogin");
 			modelAndView.addObject("exception", e.getMessage());
 		}
 		return modelAndView;
@@ -126,6 +129,7 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		LocalDate date = LocalDate.of(card.getYear(), card.getMonth(), 27);
 		card.setDateOfExpiry(date);
+		card.setTimestamp(LocalDateTime.now());
 		try {
 			creditCard.saveCardDetails(uci, card);
 			mv.addObject("name", customerService.returnName(uci));
@@ -336,21 +340,20 @@ public class UserController {
 	public ModelAndView addAutoPayment() {
 		ModelAndView mv = new ModelAndView();
 		try {
-			Set<AccountBean> accounts = accountService.getAccountsOfUci(uci);
-			mv.addObject("accounts", accounts);
+			mv.addObject("accounts", accountService.getAccountsOfUci(uci));
+			mv.addObject("serviceProviders", autoPaymentService.showIBSServiceProviders());
 			mv.setViewName("addautopayment");
-
 		} catch (IBSExceptions e) {
 			mv.setViewName("exceptionpage");
 			mv.addObject("exception", e.getMessage());
 		}
-		mv.setViewName("addautopayment");
+
 		return mv;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/addautopayment")
 	public ModelAndView addAutoPaymentDetails(@ModelAttribute AutoPayment autoPayment,
-			@RequestParam("account") BigInteger accountNumber) {
+			@RequestParam("accountNumber") BigInteger accountNumber) {
 		ModelAndView mv = new ModelAndView();
 		BigInteger spId = null;
 		Set<ServiceProvider> serviceProviders = autoPaymentService.showIBSServiceProviders();
@@ -361,7 +364,7 @@ public class UserController {
 		}
 		autoPayment.setServiceProviderId(new ServiceProviderId(spId, uci));
 		try {
-			autoPaymentService.autoDeduction(spId, accountNumber, autoPayment);
+			autoPaymentService.autoDeduction(uci, accountNumber, autoPayment);
 			mv.addObject("name", customerService.returnName(uci));
 			mv.setViewName("submitautopayment");
 
@@ -376,7 +379,7 @@ public class UserController {
 	public ModelAndView viewAutoPayments() {
 		ModelAndView mv = new ModelAndView();
 		try {
-			mv.addObject("savedBeneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
+			mv.addObject("savedAutopayemnts", autoPaymentService.showAutopaymentDetails(uci));
 			mv.setViewName("viewautopayment");
 		} catch (IBSExceptions e) {
 			mv.setViewName("exceptionpage");
@@ -385,25 +388,70 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping("/deleteautopayment")
-	public ModelAndView deleteAutoPayment(@RequestParam BigInteger accountNumber, @RequestParam String delete) {
-		ModelAndView modelAndView = new ModelAndView();
-		if (delete.equalsIgnoreCase("Delete")) {
-			try {
-				boolean check = beneficiaryservice.deleteBeneficiaryAccountDetails(accountNumber);
-				if (check) {
-					modelAndView.addObject("beneficiaries", beneficiaryservice.showBeneficiaryAccount(uci));
-					modelAndView.setViewName("viewautopayment");
-				}
+	@RequestMapping(method = RequestMethod.GET, value = "/modifyautopayment")
+	public ModelAndView modifyautopayment(@RequestParam("spi") BigInteger spId1) {
+		ModelAndView mv = new ModelAndView();
+		AutoPayment autoPayment;
+		try {
+			autoPayment = autoPaymentService.getAutopayment(new ServiceProviderId(spId1, uci));
+			mv.addObject("accounts", accountService.getAccountsOfUci(uci));
+			mv.addObject("autoPayment", autoPayment);
+			mv.addObject("spi", spId1);
+			mv.setViewName("modifyautopayment");
+		} catch (IBSExceptions e) {
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
+		}
 
-			} catch (IBSExceptions e) {
-				modelAndView.setViewName("exceptionpage");
-				modelAndView.addObject("exception", e.getMessage());
-			}
+		return mv;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/modifyautopayment")
+	public ModelAndView modifyautopaymentDetails(@ModelAttribute AutoPayment autoPayment,  @RequestParam("spi") BigInteger spi ) {
+		ModelAndView mv = new ModelAndView();
+//		BigInteger spi = null;
+//		Set<ServiceProvider> serviceProviders = autoPaymentService.showIBSServiceProviders();
+//		for (ServiceProvider serviceProvider : serviceProviders) {
+//			if (serviceProvider.getNameOfCompany().equalsIgnoreCase(autoPayment.getServiceName())) {
+//				spi = serviceProvider.getSpi();
+//			}
+//		}
+		try {
+			autoPaymentService.updateDetails(new ServiceProviderId(spi, uci), autoPayment);
+			mv.addObject("autoPayment", autoPayment);
+			mv.setViewName("submitautopayment");// make modifyautopayment jsp plus delete is not working
+
+		} catch (IBSExceptions e) {
+			mv.setViewName("exceptionpage");
+			mv.addObject("exception", e.getMessage());
+		}
+		return mv;
+	}
+
+	@RequestMapping("/deleteautopayment")
+	public ModelAndView deleteAutoPayment(@RequestParam("spi") BigInteger spId1) {
+		ModelAndView modelAndView = new ModelAndView();
+
+		try {
+			autoPaymentService.deleteAutopayment(uci, spId1);
+			modelAndView.addObject("savedAutopayemnts", autoPaymentService.showAutopaymentDetails(uci));
+			modelAndView.setViewName("viewautopayment");
+
+		} catch (IBSExceptions e) {
+			modelAndView.setViewName("exceptionpage");
+			modelAndView.addObject("exception", e.getMessage());
 		}
 
 		return modelAndView;
 
+	}
+
+	@RequestMapping("/exceptionuser")
+	public ModelAndView exception() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("exception", "Under Maintenance");
+		mv.setViewName("exceptionpage");
+		return mv;
 	}
 
 }

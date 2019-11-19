@@ -95,5 +95,18 @@ public class AdminController {
 		return modelAndView;
 
 	}
+	@RequestMapping("/exception")
+	public ModelAndView exceptionPageAdmin()
+	{
+		ModelAndView mv= new ModelAndView();
+		mv.addObject("exception", "Under Maintanence");
+		mv.setViewName("exceptionpageadmin");
+		return mv;
+	}
+	@RequestMapping("/logoutadmin")
+	public String logoutAdmin()
+	{
+		return "logout";
+	}
 
 }

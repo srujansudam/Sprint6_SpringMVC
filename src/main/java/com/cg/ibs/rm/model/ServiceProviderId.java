@@ -11,7 +11,7 @@ public class ServiceProviderId implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8053767533517376863L;
-	private BigInteger Spi;
+	private BigInteger spi;
 	private BigInteger uci;
 
 	public ServiceProviderId() {
@@ -20,16 +20,16 @@ public class ServiceProviderId implements Serializable {
 
 	public ServiceProviderId(BigInteger spi, BigInteger uci) {
 		super();
-		Spi = spi;
+		this.spi = spi;
 		this.uci = uci;
 	}
 
 	public BigInteger getSpi() {
-		return Spi;
+		return spi;
 	}
 
 	public void setSpi(BigInteger spi) {
-		Spi = spi;
+		this.spi = spi;
 	}
 
 	public BigInteger getUci() {
@@ -42,7 +42,7 @@ public class ServiceProviderId implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ServiceProviderId [Spi=" + Spi + ", uci=" + uci + "]";
+		return "ServiceProviderId [Spi=" + spi + ", uci=" + uci + "]";
 	}
 
 	

@@ -11,15 +11,16 @@
 </head>
 <body>
 	<jsp:include page="/rmadmin"></jsp:include>
-	<h2>Credit Cards</h2>
+	<h1 align="center" style="font-size: xx-large; background-color: aliceblue">Credit Cards</h1>
 	<c:choose>
 		<c:when test="${cards==null or cards.size()==0 }">
-			<p>
-				<strong>No Records Available</strong>
+			<p align="center" style="font-size: x-large;">
+				<strong>No Records Available!</strong>
 			</p>
 		</c:when>
 		<c:otherwise>
-			<table border="1">
+		<div align="center">
+			<table border="1" >
 				<tr>
 					<th>Card Number</th>
 					<th>Card Name</th>
@@ -58,7 +59,10 @@
 					</tr>
 				</c:forEach>
 			</table>
+			</div>
 		</c:otherwise>
 	</c:choose>
+		<div align="center" style="font-size: x-large; margin-top:300">
+	<jsp:include page="/bankadminnav" /></div>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Credit Cards</title>
+<title>Beneficiaries</title>
 </head>
 <body>
 

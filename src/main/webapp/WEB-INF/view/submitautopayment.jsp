@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Submit Auto Payment</title>
 </head>
 <body>
+	<jsp:include page="/remnav" />
 	<jsp:include page="/autopaymentnav" />
-	  <h2>Thanku ${name}</h2>
-	  <h2> Beneficiary gone for approval.</h2>
+	<h2>Thank you ${name}</h2>
+	<h2>Auto Payment Modified.</h2>
 </body>
 </html>
