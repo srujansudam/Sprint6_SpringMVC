@@ -25,18 +25,19 @@ public class AutoPaymentServiceImpl implements AutoPaymentService {
 	EntityTransaction transaction;
 	@Autowired
 	private AutoPaymentDAO autoPaymentDao;
-	//private static final Logger LOGGER = Logger.getLogger(AutoPaymentServiceImpl.class.getName());
+	// private static final Logger LOGGER =
+	// Logger.getLogger(AutoPaymentServiceImpl.class.getName());
 
 	@Override
 	public Set<AutoPayment> showAutopaymentDetails(BigInteger uci) throws IBSExceptions {
-		//LOGGER.info("entered showAutopaymentDetails in autopaymentservimpl");
+		// LOGGER.info("entered showAutopaymentDetails in autopaymentservimpl");
 		return autoPaymentDao.getAutopaymentDetails(uci);
 
 	}
 
 	@Override
 	public Set<ServiceProvider> showIBSServiceProviders() {
-		//LOGGER.info("entered  showIBSServiceProviders in autopaymentservimpl");
+		// LOGGER.info("entered showIBSServiceProviders in autopaymentservimpl");
 		return autoPaymentDao.showServiceProviderList();
 
 	}
@@ -45,29 +46,27 @@ public class AutoPaymentServiceImpl implements AutoPaymentService {
 	@Transactional
 	public boolean autoDeduction(BigInteger uci, BigInteger accountNumber, AutoPayment autoPayment)
 			throws IBSExceptions {
-		//LOGGER.info("entered  autodeduction in autopaymentservimpl");
+		// LOGGER.info("entered autodeduction in autopaymentservimpl");
 		LocalDate today = LocalDate.now();
 		boolean validAutoDeduct = false;
-		//LOGGER.debug(autoPaymentDao.getAccount(accountNumber).getBalance());
-		if (Pattern.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((?:[0-9]{2})?[0-9]{2})$",
-				autoPayment.getDateOfStart())) {
-			DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			LocalDate startOfAutoPayment = LocalDate.parse(autoPayment.getDateOfStart(), dtFormatter);
-			if (!(startOfAutoPayment.isBefore(today))) {
-				autoPaymentDao.copyDetails(uci, autoPayment);
-				if (today.equals(startOfAutoPayment) && (0 <= autoPaymentDao.getAccount(accountNumber).getBalance()
-						.compareTo(autoPayment.getAmount()))) {
-					BigDecimal balance = autoPaymentDao.getAccount(accountNumber).getBalance()
-							.subtract(autoPayment.getAmount());
-					autoPaymentDao.setCurrentBalance(balance, accountNumber);
-					autoPaymentDao.setTransaction(uci, accountNumber, autoPayment);
-					startOfAutoPayment.plusMonths(1);
-					//LOGGER.debug(autoPaymentDao.getAccount(accountNumber).getBalance());
+		// LOGGER.debug(autoPaymentDao.getAccount(accountNumber).getBalance());		
+		DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate startOfAutoPayment = LocalDate.parse(autoPayment.getDateOfStart(), dtFormatter);
+		if (!(startOfAutoPayment.isBefore(today))) {
+			autoPaymentDao.copyDetails(uci, autoPayment);
+			if (today.equals(startOfAutoPayment) && (0 <= autoPaymentDao.getAccount(accountNumber).getBalance()
+					.compareTo(autoPayment.getAmount()))) {
+				BigDecimal balance = autoPaymentDao.getAccount(accountNumber).getBalance()
+						.subtract(autoPayment.getAmount());
+				autoPaymentDao.setCurrentBalance(balance, accountNumber);
+				autoPaymentDao.setTransaction(uci, accountNumber, autoPayment);
+				startOfAutoPayment.plusMonths(1);
+				// LOGGER.debug(autoPaymentDao.getAccount(accountNumber).getBalance());
 
-				}
-				validAutoDeduct = true;
 			}
+			validAutoDeduct = true;
 		}
+
 		return validAutoDeduct;
 	}
 
@@ -75,7 +74,7 @@ public class AutoPaymentServiceImpl implements AutoPaymentService {
 	@Transactional
 	public boolean deleteAutopayment(BigInteger uci, BigInteger spi) throws IBSExceptions {
 		boolean result = false;
-		//LOGGER.info("entered updateRequirements in autopaymentservimpl");
+		// LOGGER.info("entered updateRequirements in autopaymentservimpl");
 		result = autoPaymentDao.deleteDetails(uci, spi);
 		return result;
 	}

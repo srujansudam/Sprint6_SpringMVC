@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,6 +28,14 @@ public class AutoPayment implements Serializable {
 	private String serviceName;
 	
 	@OneToMany(cascade = CascadeType.ALL)	
+	  @JoinColumns({
+	        @JoinColumn(
+	            name = "spi",
+	            referencedColumnName = "spi"),
+	        @JoinColumn(
+	            name = "uci",
+	            referencedColumnName = "uci")
+	    })
 	private Set<TransactionBean> transactions = new HashSet<>();
 
 	public AutoPayment() {

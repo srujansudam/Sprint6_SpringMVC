@@ -30,8 +30,7 @@ public class AutoPaymentDAOImpl implements AutoPaymentDAO {
 
 	@PersistenceContext
 	EntityManager manager;
-	@PersistenceContext
-	EntityManager manager1;
+
 	// private static final Logger LOGGER =
 	// Logger.getLogger(AutoPaymentDAOImpl.class);
 
@@ -60,7 +59,7 @@ public class AutoPaymentDAOImpl implements AutoPaymentDAO {
 		if (null == manager.find(AutoPayment.class, autoPayment.getServiceProviderId())) {
 			CustomerBean customerBean = manager.find(CustomerBean.class, uci);
 			customerBean.getAutoPayments().add(autoPayment);
-			manager.persist(autoPayment);// why not customer bean
+			manager.merge(autoPayment);// why not customer bean
 			result = true;
 		} else {
 			throw new IBSExceptions(ExceptionMessages.AUTOPAYMENT_ALREADY_ADDED);
@@ -119,13 +118,13 @@ public class AutoPaymentDAOImpl implements AutoPaymentDAO {
 		transactionBean.setTransactionDescription("Auto Payment");
 		transactionBean.setTransactionMode(TransactionMode.ONLINE);
 		transactionBean.setTransactionType(TransactionType.DEBIT);
-		CustomerBean bean = manager.find(CustomerBean.class, uci);
-		transactionBean.setAccount(manager1.find(AccountBean.class, accountNumber));
+		CustomerBean customer = manager.find(CustomerBean.class, uci);
+		transactionBean.setAccount(manager.find(AccountBean.class, accountNumber));
 		autoPayment.getTransactions().add(transactionBean);
-		bean.getAutoPayments().add(autoPayment);
-		manager.merge(bean);
-		manager1.merge(transactionBean);
-		manager1.merge(autoPayment);
+		customer.getAutoPayments().add(autoPayment);
+		manager.merge(customer);
+		manager.merge(transactionBean);
+		manager.merge(autoPayment);
 		return true;
 	}
 

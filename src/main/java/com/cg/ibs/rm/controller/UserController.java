@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -141,7 +143,7 @@ public class UserController {
 		}
 		return mv;
 	}
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/viewcard")
 	public ModelAndView viewCardDetails() {
 		ModelAndView mv = new ModelAndView();
@@ -358,15 +360,20 @@ public class UserController {
 		BigInteger spId = null;
 		Set<ServiceProvider> serviceProviders = autoPaymentService.showIBSServiceProviders();
 		for (ServiceProvider serviceProvider : serviceProviders) {
-			if (serviceProvider.getNameOfCompany().equals(autoPayment.getServiceName())) {
+			if (serviceProvider.getNameOfCompany().equalsIgnoreCase(autoPayment.getServiceName())) {
 				spId = serviceProvider.getSpi();
 			}
 		}
 		autoPayment.setServiceProviderId(new ServiceProviderId(spId, uci));
 		try {
-			autoPaymentService.autoDeduction(uci, accountNumber, autoPayment);
+			if(autoPaymentService.autoDeduction(uci, accountNumber, autoPayment)) {
 			mv.addObject("name", customerService.returnName(uci));
 			mv.setViewName("submitautopayment");
+			}
+			else {
+				mv.addObject("exception", "error!!");
+				mv.setViewName("exceptionpage");
+			}
 
 		} catch (IBSExceptions e) {
 			mv.setViewName("exceptionpage");
